@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadEvents } from '../store/eventsSlice';
 import EventCard from '../components/EventCard';
-
-const CATEGORIES = ['Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous'];
+import CategoryBar from '../components/CategoryBar';
 
 function Events() {
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ function Events() {
 
   const [keyword, setKeyword] = useState('');
   const [city, setCity] = useState('');
-  const [category, setCategory] = useState('');
   const [filters, setFilters] = useState({ keyword: '', city: '', category: '' });
 
   useEffect(
@@ -39,19 +37,28 @@ function Events() {
 
   function handleSearch(event) {
     event.preventDefault();
-    setFilters({ keyword: keyword.trim(), city: city.trim(), category: category });
+    setFilters({
+      keyword: keyword.trim(),
+      city: city.trim(),
+      category: filters.category,
+    });
+  }
+
+  function handleCategory(name) {
+    setFilters({ keyword: filters.keyword, city: filters.city, category: name });
   }
 
   function handleClear() {
     setKeyword('');
     setCity('');
-    setCategory('');
     setFilters({ keyword: '', city: '', category: '' });
   }
 
   return (
     <div className="events-page">
       <h2>Upcoming Events</h2>
+
+      <CategoryBar selected={filters.category} onSelect={handleCategory} />
 
       <form className="filters" onSubmit={handleSearch}>
         <input
@@ -68,21 +75,6 @@ function Events() {
             setCity(e.target.value);
           }}
         />
-        <select
-          value={category}
-          onChange={function (e) {
-            setCategory(e.target.value);
-          }}
-        >
-          <option value="">All categories</option>
-          {CATEGORIES.map(function (name) {
-            return (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            );
-          })}
-        </select>
         <button type="submit">Search</button>
         <button type="button" onClick={handleClear}>
           Clear
