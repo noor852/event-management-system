@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Events from './pages/Events';
 import EventDetails from './pages/EventDetails';
+import MyEvents from './pages/MyEvents';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
           path="/my-events"
           element={
             <ProtectedRoute>
-              <h2>My Events coming soon</h2>
+              <MyEvents />
             </ProtectedRoute>
           }
         />
