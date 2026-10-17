@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Events from './pages/Events';
+import EventDetails from './pages/EventDetails';
 
 function App() {
   return (
@@ -16,7 +18,15 @@ function App() {
           path="/events"
           element={
             <ProtectedRoute>
-              <h2>Events page coming soon</h2>
+              <Events />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/events/:id"
+          element={
+            <ProtectedRoute>
+              <EventDetails />
             </ProtectedRoute>
           }
         />
