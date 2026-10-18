@@ -55,7 +55,7 @@ npm run dev
 
 ## Project Structure
 
-```
+```git status
 src/
   components/   Navbar, ProtectedRoute, EventCard, CategoryBar
   pages/        Login, Register, Events, EventDetails, MyEvents
